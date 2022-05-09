@@ -1,0 +1,14 @@
+run django:
+    You need to be in the current directory of the django project
+    - python3 manage.py runserver
+
+run tailwind css monitoring
+    This is to listen for changes in the css file
+    - python3 manage.py tailwind start
+
+git
+    to push
+    - git push
+    to pull
+    - git pull
+    
