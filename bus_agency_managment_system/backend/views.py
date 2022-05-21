@@ -133,12 +133,12 @@ def bookings(request):
     }
     return render(request, 'backend/bookings.html', context)
 
-def travel_schedules(request):
-    travel_schedules = TravelSchedule.objects.all()
+def trips(request):
+    trips = Trip.objects.all()
     context = {
-        'travel_schedules': travel_schedules
+        'trips': trips
     }
-    return render(request, 'backend/travel_schedules.html', context)
+    return render(request, 'backend/trips.html', context)
 
 def parcels(request):
     bookings = Parcel.objects.all()

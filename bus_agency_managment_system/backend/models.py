@@ -39,7 +39,8 @@ class Bus(models.Model):
     bus_number = models.CharField(max_length=200, null=True)
     bus_plate_number = models.CharField(max_length=200, null=True)
     bus_capacity = models.CharField(max_length=200, null=True)
-class TravelSchedule(models.Model):
+    
+class Trip(models.Model):
     
     bus = models.ForeignKey(Bus, on_delete=models.SET_NULL, null=True)
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True)
@@ -63,7 +64,7 @@ class Booking(models.Model):
         ('Approved', "Approved"),
         ('Rejected', "Rejected"),
     )
-    schedule = models.ForeignKey(TravelSchedule, null=True, on_delete=models.SET_NULL)
+    schedule = models.ForeignKey(Trip, null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     date_of_booking = models.DateTimeField(auto_now=True)
     booking_status = models.CharField(max_length=200, null=True, choices=STATUS)
