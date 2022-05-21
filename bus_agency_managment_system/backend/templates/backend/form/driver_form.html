@@ -1,0 +1,165 @@
+{% extends 'backend/main.html' %}
+
+{% block content %}
+<h3 class="text-gray-700 text-3xl font-medium">{{title}}</h3>
+
+
+<div class="mt-8">
+
+</div>
+<div class="flex flex-col mt-8">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="flex justify-center items-center">
+
+            <div class="mt-5 md:mt-0 w-full md:w-10/12 lg:w-9/12 mx-auto py-5 sm:p-6"  >
+                <form action="" x-data='driver_form'  @submit.prevent="submit()" x-ref="driver_form" method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="w-full grid grid-cols-8 gap-4 p-4 md:p=0">
+                        <div class="col-span-8 md:col-span-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" name="name" id="name" autocomplete="given-name" value="{{form.name.value}}"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                :class="{'border-red-600':fields.name.isValid == false}" x-model="fields.name.value"
+                                @blur="fields.name.validate(validationCallback)"
+                                @input="fields.name.validate(validationCallback)">
+                            <p class="text-red-500 text-xs italic py-2" x-show="fields.name.isValid == false">
+                                <span x-text="fields.name.errorMsg"></span>
+                            </p>
+                        </div>
+
+                        <div class="col-span-8 md:col-span-4">
+                            <label for="last-name" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="text" name="email" id="email" autocomplete="family-name"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                :class="{'border-red-600':fields.email.isValid == false}" x-model="fields.email.value"
+                                @blur="fields.email.validate(validationCallback)"
+                                @input="fields.email.validate(validationCallback)">
+
+                            <p class="text-red-500 text-xs italic py-2" x-show="fields.email.isValid == false">
+                                <span x-text="fields.email.errorMsg"></span>
+                            </p>
+                        </div>
+
+                        <div class="col-span-8 md:col-span-4">
+                            <label for="first-name" class="block text-sm font-medium text-gray-700">Phone1
+                            </label>
+                            <input type="number" name="phone1" id="email"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                :class="{'border-red-600':fields.phone1.isValid == false}" id="email"
+                                x-model="fields.phone1.value" @blur="fields.phone1.validate(validationCallback)"
+                                @input="fields.phone1.validate(validationCallback)">
+
+                            <p class="text-red-500 text-xs italic py-2" x-show="fields.phone1.isValid == false">
+                                <span x-text="fields.phone1.errorMsg"></span>
+                            </p>
+                        </div>
+
+                        <div class="col-span-8 md:col-span-4">
+                            <label for="last-name" class="block text-sm font-medium text-gray-700">Phone2</label>
+                            <input type="number" name="phone2" id="phone"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                :class="{'border-red-600':fields.phone2.isValid == false}" x-model="fields.phone2.value"
+                                @blur="fields.phone2.validate(validationCallback)"
+                                @input="fields.phone2.validate(validationCallback)">
+
+                            <p class="text-red-500 text-xs italic py-2" x-show="fields.phone2.isValid == false">
+                                <span x-text="fields.phone2.errorMsg"></span>
+                            </p>
+                        </div>
+
+
+                    </div>
+                    <div class="px-4 py-3 text-right sm:px-6 flex justify-center">
+                        <button type="submit" 
+                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('driver_form', () => ({
+            fields: {
+                name: {
+                    value: '{{form.name.value}}',
+                    rules: ['required'],
+                    isValid: null,
+                    errorMsg: null,
+                    validate(callback) {
+                        let { isValid, errorMsg } = callback(this);
+                        this.isValid = isValid;
+                        this.errorMsg = errorMsg;
+                    },
+                },
+
+                email: {
+                    value: '{{form.email.value}}',
+                    rules: ['required', 'email'],
+                    isValid: null,
+                    errorMsg: null,
+                    validate(callback) {
+                        let { isValid, errorMsg } = callback(this);
+                        this.isValid = isValid;
+                        this.errorMsg = errorMsg;
+                    },
+                },
+                phone1: {
+                    value: '{{form.phone1.value}}',
+                    rules: ['required', 'numeric'],
+                    isValid: null,
+                    errorMsg: null,
+                    validate(callback) {
+                        console.log(typeof(this.value))
+                        let { isValid, errorMsg } = callback(this);
+                        this.isValid = isValid;
+                        this.errorMsg = errorMsg;
+                    },
+                },
+                phone2: {
+                    value: '{{form.phone2.value}}',
+                    rules: ['optional', 'numeric'],
+                    isValid: null,
+                    errorMsg: null,
+                    validate(callback) {
+                        console.log(typeof(this.value))
+                        let { isValid, errorMsg } = callback(this);
+                        this.isValid = isValid;
+                        this.errorMsg = errorMsg;
+                    },
+                },
+
+            },
+            isFormValid: true,
+            validationCallback(field) {
+                let { value, rules } = field;
+                let isValid = Iodine.isValid(value, rules);
+                let errorMsg = isValid
+                    ? null
+                    : Iodine.getErrorMessage(Iodine.is(value, rules));
+                return { isValid, errorMsg };
+            },
+            submit() {
+                this.isFormValid = !Object.values(this.fields).some(
+                    (field) => !field.isValid
+                );
+
+                if(!this.isFormValid){
+                    !Object.values(this.fields).forEach(field => {
+                        field.validate(this.validationCallback)
+                    });
+                }else{
+                    this.$refs.driver_form.submit()
+                }
+                
+            }
+        }))
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'backend/main.html' %}
+
+{% block content %}
+<h3 class="text-gray-700 text-3xl font-medium">Bookings</h3>
+
+<!-- <a href="{% url 'add_driver' %}"
+    class="inline-block rounded-md px-5 py-2  md:px-6 md:py-3 text-white bg-green-500 mt-3">Add Bus</a> -->
+
+
+<div class="mt-8">
+
+</div>
+
+<div class="flex flex-col mt-8">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+            <table class="min-w-full pb-10">
+                <thead>
+                    <tr>
+                        <th
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            No</th>
+                        <th
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            UserName</th>
+                        <th
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            User Email</th>
+                        <th
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Starting Point</th>
+                        <th
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Destination</th>
+                        <th
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Departure DateTime</th>
+                        <th
+                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Date of Booking</th>
+                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                    </tr>
+                </thead>
+
+                <tbody class="bg-white">
+
+
+                    {% for booking in bookings %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {{booking.id}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {{booking.user.username}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {{booking.user.email}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {{booking.schedule.starting_point}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {{booking.schedule.destination}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {{booking.schedule.departure_datetime}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {{booking.date_of_booking}}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <a href="{% url 'add_driver' %}"
+    class="inline-block rounded-md px-3 py-2  md:px-3 md:py-1 text-white text-sm bg-green-500 ">View</a>
+                        </td>
+                        
+
+                        <td>
+                            <div x-data="{ dropdownOpen: false }" class="relative">
+                                <button @click="dropdownOpen = ! dropdownOpen"
+                                    class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
+                                    <span class="text-xl text-black">
+
+                                        <i class="fa-solid fa-caret-down"></i>
+                                    </span>
+                                </button>
+
+                                <div x-show="dropdownOpen" @click="dropdownOpen = false"
+                                    class="fixed inset-0 h-full w-full z-10" style="display: none;"></div>
+
+                                <div x-show="dropdownOpen"
+                                    class="absolute right-0 bottom-0 mt-2 w-48 transform -translate-x-3/4 bg-white rounded-md overflow-hidden shadow-xl z-50 border border-indigo-500"
+                                    style="display: none;">
+
+                                    <a href="{% url 'update_bus' booking.id  %}"
+                                        class="block px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Edit</a>
+                                    <a href="{% url 'delete_bus' booking.id  %}"
+                                        class="block px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+<nav class="mt-10">
+    <a class="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100" href="{% url 'dashboard' %}">
+        <i class="fa-solid fa-gauge"></i>
+
+        <span class="mx-3">Dashboard</span>
+    </a>
+
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="">
+        <i class="fa-solid fa-person"></i>
+
+        <span class="mx-3">Users</span>
+    </a>
+
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'drivers' %}">
+        <i class="fa-solid fa-id-card"></i>
+
+        <span class="mx-3">Drivers</span>
+    </a>
+
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'bookings' %}">
+
+        <i class="fa-solid fa-receipt"></i>
+        <span class="mx-3">Bookings</span>
+    </a>
+
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="/tables">
+
+        <i class="fa-solid fa-receipt"></i>
+        <span class="mx-3">Book</span>
+    </a>
+
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'buses' %}">
+        <i class="fa-solid fa-bus-simple"></i>
+
+        <span class="mx-3">Buses</span>
+    </a>
+
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'travel_schedules' %}">
+
+        <i class="fa-solid fa-receipt"></i>
+        <span class="mx-3">Travel Schedules</span>
+    </a>
+
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'parcels' %}">
+        <i class="fa-solid fa-box"></i>
+
+        <span class="mx-3">Parcel</span>
+    </a>
+</nav>
