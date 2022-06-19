@@ -1,15 +1,15 @@
 {% extends 'backend/main.html' %}
 
 {% block content %}
-<h3 class="text-gray-700 text-3xl font-medium">Trip</h3>
+<h3 class="text-gray-700 text-3xl font-medium">Parcels</h3>
 
-<a href="{% url 'add_driver' %}"
-    class="inline-block rounded-md px-5 py-2  md:px-6 md:py-3 text-white bg-green-500 mt-3">Add Trip</a>
 
 
 <div class="mt-8">
 
 </div>
+
+{% if parcels|length > 0 %}
 
 <div class="flex flex-col mt-8">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -19,27 +19,13 @@
                     <tr>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Bus Id</th>
+                            Name</th>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Driver Id</th>
-
+                            Email</th>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Starting Point</th>
-                        <th
-                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Destination</th>
-                        <th
-                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Departure DateTime</th>
-                        <th
-                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Travel Fare</th>
-                        <th
-                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Available Seats</th>
-
+                            phone</th>
 
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
@@ -48,39 +34,24 @@
                 <tbody class="bg-white">
 
 
-                    {% for trip in trips %}
+                    {% for driver in drivers %}
                     <tr>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.bus.id}}
+                            {{driver.name}}
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.driver.id}}
+                            {{driver.email}}
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.starting_point}}
+                            <div class="text-sm leading-5 text-gray-900">{{driver.phone1}}</div>
+                            <div class="text-sm leading-5 text-gray-500">{{driver.phone2}}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.destination}}
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.departure_datetime}}
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.travel_fare_amount}}
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.avaible_seats}}
-                        </td>
-
                         <td>
                             <div x-data="{ dropdownOpen: false }" class="relative">
                                 <button @click="dropdownOpen = ! dropdownOpen"
                                     class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
                                     <span class="text-xl text-black">
-
+                        
                                         <i class="fa-solid fa-caret-down"></i>
                                     </span>
                                 </button>
@@ -91,10 +62,10 @@
                                 <div x-show="dropdownOpen"
                                     class="absolute right-0 bottom-0 mt-2 w-48 transform -translate-x-3/4 bg-white rounded-md overflow-hidden shadow-xl z-50 border border-indigo-500"
                                     style="display: none;">
-
-                                    <a href="{% url 'update_bus' trip.id  %}"
+                                    
+                                    <a href="{% url 'update_driver' driver.id  %}"
                                         class="block px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Edit</a>
-                                    <a href="{% url 'delete_bus' trip.id  %}"
+                                    <a href="{% url 'delete_driver' driver.id  %}"
                                         class="block px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Delete</a>
                                 </div>
                             </div>
@@ -108,4 +79,14 @@
         </div>
     </div>
 </div>
+
+{% else %}
+
+<div class="flex justify-center">
+    <span>You don't have any parcels.</span>
+</div>
+
+{% endif %}
+
+
 {% endblock %}

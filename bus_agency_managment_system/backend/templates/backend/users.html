@@ -1,10 +1,10 @@
 {% extends 'backend/main.html' %}
 
 {% block content %}
-<h3 class="text-gray-700 text-3xl font-medium">Trip</h3>
+<h3 class="text-gray-700 text-3xl font-medium">Users</h3>
 
-<a href="{% url 'add_driver' %}"
-    class="inline-block rounded-md px-5 py-2  md:px-6 md:py-3 text-white bg-green-500 mt-3">Add Trip</a>
+<!-- <a href="{% url 'add_driver' %}"
+    class="inline-block rounded-md px-5 py-2  md:px-6 md:py-3 text-white bg-green-500 mt-3">Add Bus</a> -->
 
 
 <div class="mt-8">
@@ -19,27 +19,20 @@
                     <tr>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Bus Id</th>
+                            No</th>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Driver Id</th>
-
+                            UserName</th>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Starting Point</th>
+                            User Email</th>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Destination</th>
+                            Make Staff</th>
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Departure DateTime</th>
-                        <th
-                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Travel Fare</th>
-                        <th
-                            class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Available Seats</th>
-
+                            Is Active</th>
+                        
 
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
@@ -48,32 +41,54 @@
                 <tbody class="bg-white">
 
 
-                    {% for trip in trips %}
+                    {% for user in users %}
                     <tr>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.bus.id}}
+                            {{forloop.counter}}
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.driver.id}}
+                            {{user.username}}
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.starting_point}}
+                            {{user.email}}
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.destination}}
+                            {% if user.is_staff == 0 %}
+                            <form action="{% url 'make_user_admin' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{user.id}}">
+                                <button type="submit"
+                                    class="inline-block rounded-md px-3 py-2  md:px-3 md:py-1 text-white text-sm bg-green-500 ">Make
+                                    Staff</button>
+
+                            </form>
+                            {% else %}
+                                {{user.is_staff}}
+                            {% endif %}
                         </td>
 
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.departure_datetime}}
-                        </td>
+                            {% if user.is_active == 0 %}
+                            <form action="{% url 'change_active_status' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{user.id}}">
+                                <button type="submit"
+                                    class="inline-block rounded-md px-3 py-2  md:px-3 md:py-1 text-white text-sm bg-green-500 ">Activate</button>
 
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.travel_fare_amount}}
-                        </td>
+                            </form>
+                            {% else %}
+                            <form action="{% url 'change_active_status' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{user.id}}">
+                                <button type="submit"
+                                    class="inline-block rounded-md px-3 py-2  md:px-3 md:py-1 text-white text-sm bg-red-500 ">Disactivate</button>
 
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {{trip.avaible_seats}}
+                            </form>
+                            {% endif %}
                         </td>
+                        
+
+
 
                         <td>
                             <div x-data="{ dropdownOpen: false }" class="relative">
@@ -92,9 +107,9 @@
                                     class="absolute right-0 bottom-0 mt-2 w-48 transform -translate-x-3/4 bg-white rounded-md overflow-hidden shadow-xl z-50 border border-indigo-500"
                                     style="display: none;">
 
-                                    <a href="{% url 'update_bus' trip.id  %}"
+                                    <a href=""
                                         class="block px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Edit</a>
-                                    <a href="{% url 'delete_bus' trip.id  %}"
+                                    <a href=""
                                         class="block px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Delete</a>
                                 </div>
                             </div>

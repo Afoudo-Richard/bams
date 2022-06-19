@@ -1,12 +1,13 @@
 <nav class="mt-10">
+
     <a class="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100" href="{% url 'dashboard' %}">
         <i class="fa-solid fa-gauge"></i>
 
         <span class="mx-3">Dashboard</span>
     </a>
-
+    {% if request.user.is_staff %}
     <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-        href="">
+        href="{% url 'users' %}">
         <i class="fa-solid fa-person"></i>
 
         <span class="mx-3">Users</span>
@@ -27,13 +28,6 @@
     </a>
 
     <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-        href="/tables">
-
-        <i class="fa-solid fa-receipt"></i>
-        <span class="mx-3">Book</span>
-    </a>
-
-    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
         href="{% url 'buses' %}">
         <i class="fa-solid fa-bus-simple"></i>
 
@@ -51,6 +45,29 @@
         href="{% url 'parcels' %}">
         <i class="fa-solid fa-box"></i>
 
-        <span class="mx-3">Parcel</span>
+        <span class="mx-3">Parcels</span>
     </a>
+    {% else %}
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'available_trips' %}">
+
+        <i class="fa-solid fa-receipt"></i>
+        <span class="mx-3">Available Trips</span>
+    </a>
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'user_bookings' %}">
+
+        <i class="fa-solid fa-receipt"></i>
+        <span class="mx-3">Bookings</span>
+    </a>
+    <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+        href="{% url 'user_parcels' request.user.id %}">
+
+        <i class="fa-solid fa-receipt"></i>
+        <span class="mx-3">Parcels</span>
+    </a>
+    {% endif %}
+
+
+
 </nav>

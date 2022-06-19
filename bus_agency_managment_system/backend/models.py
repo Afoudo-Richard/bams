@@ -59,12 +59,14 @@ class Trip(models.Model):
 
 
 class Booking(models.Model):
+    
     STATUS = (
         ("Pending", "Pending"),
         ('Approved', "Approved"),
         ('Rejected', "Rejected"),
+        ('Terminated', "Terminated"),
     )
-    schedule = models.ForeignKey(Trip, null=True, on_delete=models.SET_NULL)
+    trip = models.ForeignKey(Trip, null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     date_of_booking = models.DateTimeField(auto_now=True)
     booking_status = models.CharField(max_length=200, null=True, choices=STATUS)
@@ -74,7 +76,7 @@ class Parcel(models.Model):
         ("Recieved", "Recieved"),
         ('In Transit', "In Transit"),
         ('Arrived', "Arrived"),
-        ('Delivered', "Delivered")
+        ('Delivered', "Delivered"),
     )
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     parcel_description = models.CharField(max_length=200, null=True)
