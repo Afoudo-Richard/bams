@@ -1,0 +1,2 @@
+Add create and delete options for all the models.
+Add ability to book through email.
